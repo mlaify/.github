@@ -40,4 +40,4 @@ AttackMap is looking for contributors and co-maintainers. If you'd like to help 
 the engine, an analyzer, the macOS app, or the docs,
 [open an issue](https://github.com/mlaify/AttackMap/issues) to say hello.
 Report vulnerabilities privately to [security@mlaify.io](mailto:security@mlaify.io)
-([PGP key](https://mlaify.io/publickey.security.mlaify.io-092c3731c4f7015d9fa12ceef773a39417604afb.asc), fingerprint `092C 3731 C4F7 015D 9FA1 2CEE F773 A394 1760 4AFB`).
+([PGP key](https://mlaify.io/publickey.security.mlaify.io-38642d275f820a026f3bfc5e7e44d7d05bafd4df.asc), fingerprint `3864 2D27 5F82 0A02 6F3B FC5E 7E44 D7D0 5BAF D4DF`).
