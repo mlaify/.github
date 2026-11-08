@@ -1,0 +1,132 @@
+# Opens one issue when a workflow fails, with why, and closes it when the workflow passes again.
+#
+# Use it as the last job of a workflow, after every job it should watch:
+#
+#   report:
+#     needs: [build, deploy]
+#     if: always() && github.event_name != 'pull_request'
+#     runs-on: ubuntu-24.04
+#     permissions:
+#       actions: read   # read the failed jobs and their logs
+#       issues: write   # open, comment on, close the issue
+#     steps:
+#       - uses: mlaify/.github/actions/report-failure@<commit sha>
+#         with:
+#           result: ${{ contains(needs.*.result, 'failure') && 'failure' || (contains(needs.*.result, 'cancelled') && 'cancelled' || 'success') }}
+#
+# To keep notifications down:
+# - one open issue per workflow and branch: a repeat failure comments on it rather than opening another;
+# - the next successful run closes it, with a link to that run;
+# - nothing for pull requests (the PR already shows its checks), cancelled runs, or a job that failed
+#   without running a step (a deployment the reviewer rejected, a job that never started).
+#
+# The issue names the failed jobs and steps and quotes the end of each failed job's log. Actions logs of a
+# public repository are already public, and GitHub masks secrets in them before they are stored.
+name: Report workflow failure
+description: Open or update one issue per failing workflow, with the failed steps and log tails; close it on success.
+inputs:
+  result:
+    description: "failure, success or cancelled: the outcome of the jobs this one needs."
+    required: true
+  label:
+    description: Label for the issue.
+    default: ci-failure
+  log-lines:
+    description: Lines of each failed job's log to quote.
+    default: "60"
+  github-token:
+    description: Token with actions:read and issues:write on this repository.
+    default: ${{ github.token }}
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      env:
+        GH_TOKEN: ${{ inputs.github-token }}
+        RESULT: ${{ inputs.result }}
+        LABEL: ${{ inputs.label }}
+        LOG_LINES: ${{ inputs.log-lines }}
+        REPO: ${{ github.repository }}
+        RUN_ID: ${{ github.run_id }}
+        RUN_ATTEMPT: ${{ github.run_attempt }}
+        WORKFLOW: ${{ github.workflow }}
+        REF_NAME: ${{ github.ref_name }}
+        EVENT: ${{ github.event_name }}
+        SHA: ${{ github.sha }}
+        SERVER: ${{ github.server_url }}
+      run: |
+        set -euo pipefail
+        run_url="$SERVER/$REPO/actions/runs/$RUN_ID"
+        title="CI failure: $WORKFLOW on $REF_NAME"
+
+        open_issue() {
+          gh issue list -R "$REPO" --label "$LABEL" --state open --limit 100 --json number,title \
+            | jq -r --arg t "$title" '.[] | select(.title == $t) | .number' | head -n 1
+        }
+
+        case "$RESULT" in
+          success)
+            n=$(open_issue || true)
+            if [ -n "$n" ]; then
+              gh issue close "$n" -R "$REPO" --comment "Fixed: [$WORKFLOW passed]($run_url) on \`${SHA:0:7}\`."
+              echo "closed #$n"
+            fi
+            exit 0 ;;
+          failure) ;;
+          *) echo "result is '$RESULT': nothing to report"; exit 0 ;;
+        esac
+
+        # The failed jobs of this attempt, and in each, the steps that failed. A job with no failed
+        # step never ran (a rejected deployment, a runner that never started): not reported.
+        jobs=$(gh api "repos/$REPO/actions/runs/$RUN_ID/attempts/$RUN_ATTEMPT/jobs?per_page=100" \
+          --jq '[.jobs[] | select(.conclusion == "failure")
+                 | {id, name, url: .html_url,
+                    steps: [.steps[]? | select(.conclusion == "failure") | .name]}
+                 | select(.steps | length > 0)]')
+        if [ "$(jq length <<<"$jobs")" = 0 ]; then
+          echo "no job failed in a step (rejected deployment or a job that never started): nothing to report"
+          exit 0
+        fi
+
+        commit=$(gh api "repos/$REPO/commits/$SHA" --jq '.commit.message | split("\n")[0]' 2>/dev/null) || commit=""
+        # An @name in the commit subject would notify that person; break the mention.
+        commit=${commit//@/@​}
+        body=$(mktemp)
+        {
+          echo "**[$WORKFLOW]($run_url)** failed on \`$REF_NAME\` (\`$EVENT\`), commit \`${SHA:0:7}\`${commit:+: $commit}."
+          echo
+          jq -r '.[] | "- **[\(.name)](\(.url))**: failed at " + (.steps | map("`" + . + "`") | join(", "))' <<<"$jobs"
+          for id in $(jq -r '.[].id' <<<"$jobs"); do
+            name=$(jq -r ".[] | select(.id == $id) | .name" <<<"$jobs")
+            # Job logs: drop timestamps and colour codes. Quote the lines up to the last
+            # `##[error]` line (the job's cleanup follows it), or the end if there is none.
+            log=$(gh api "repos/$REPO/actions/jobs/$id/logs" 2>/dev/null \
+              | sed -E 's/^[0-9T:.-]+Z //; s/\x1b\[[0-9;]*m//g' \
+              | awk -v n="$LOG_LINES" '{ l[NR] = $0 } /##\[error\]/ { e = NR }
+                  END { last = e ? e : NR; for (i = (last > n ? last - n + 1 : 1); i <= last; i++) print l[i] }' \
+              || true)
+            echo
+            echo "<details><summary>Log of <b>$name</b>, up to the error</summary>"
+            echo
+            echo '```'
+            printf '%s\n' "${log:-(log not available)}" | cut -c1-400
+            echo '```'
+            echo "</details>"
+          done
+          echo
+          echo "This issue closes itself when $WORKFLOW next passes on \`$REF_NAME\`. Opened by \`mlaify/.github/actions/report-failure\`."
+        } >"$body"
+        # GitHub caps an issue body at 65,536 characters.
+        if [ "$(wc -c <"$body")" -gt 60000 ]; then
+          head -c 60000 "$body" >"$body.cut" && printf '\n```\n</details>\n\n(cut to fit)\n' >>"$body.cut" && mv "$body.cut" "$body"
+        fi
+
+        gh label create "$LABEL" -R "$REPO" --color B60205 \
+          --description "A workflow on a branch failed; closes when it passes" 2>/dev/null || true
+        n=$(open_issue || true)
+        if [ -n "$n" ]; then
+          gh issue comment "$n" -R "$REPO" --body-file "$body"
+          echo "commented on #$n"
+        else
+          gh issue create -R "$REPO" --title "$title" --label "$LABEL" --body-file "$body"
+        fi
