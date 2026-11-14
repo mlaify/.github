@@ -19,19 +19,28 @@ public issue, pull request, discussion, or comment.
 This is a coordinated vulnerability disclosure program, not a bug bounty. We do not offer or
 promise payment, rewards, or swag for reports.
 
-## What to include
+## What to include in a report
 
-Provide:
+GitHub's private reporting form has fixed fields, so cover these points in it:
 
-- the affected repository, component, version, or commit;
-- the realistic attacker prerequisites and security impact;
-- complete, minimal reproduction steps or a proof of concept;
-- any relevant logs or evidence, with credentials, personal data, proprietary source, and
-  third-party data removed; and
-- your preferred disclosure and credit details.
+- **Affected repository, component, and version:** the release, build, or commit if known.
+- **Summary:** the security boundary that breaks.
+- **Realistic impact:** what an attacker can read, change, execute, impersonate, or make
+  unavailable, and who is affected.
+- **Attacker prerequisites:** network position, authentication or role, local or physical
+  access, user interaction, and configuration assumptions.
+- **Reproduction or proof of concept:** minimal, safe steps that let the maintainer validate the
+  issue, without data or credentials belonging to others.
+- **Sanitized evidence:** logs, screenshots, traces, or code excerpts with secrets, personal
+  data, proprietary source, and third-party data removed.
+- **Suggested remediation,** if you have one.
+- **Disclosure and credit preference:** timing constraints and the name or handle to credit, or
+  a request for anonymity.
 
-Automated scanner output without validation and a demonstrated impact is not sufficient by
-itself.
+Before you submit, confirm that you tested only systems, devices, accounts, and data you own or
+had explicit permission to test, and that the report concerns this project itself rather than an
+ordinary bug, an incorrect result, or a third-party product. Automated scanner output without
+validation and a demonstrated impact is not sufficient by itself.
 
 ## Scope
 
@@ -59,7 +68,7 @@ Report third-party vulnerabilities to the responsible vendor or an appropriate c
 
 ## Our commitments
 
-For a complete, in-scope report submitted through an official private channel, we will:
+For a complete, in-scope report submitted through GitHub Private Vulnerability Reporting, we will:
 
 - aim to acknowledge the report within seven calendar days;
 - work with you to understand and validate the issue;
@@ -78,7 +87,7 @@ To participate in good faith:
 - avoid privacy violations, disruption, data destruction, persistence, and lateral movement;
 - access only the minimum data needed to demonstrate the issue, and stop immediately if you
   encounter data that is not yours;
-- use only the official private channels for vulnerability details;
+- use only GitHub Private Vulnerability Reporting for vulnerability details;
 - allow a reasonable remediation period, normally at least 90 days, before public disclosure;
   and
 - do not use threats, extortion, or demands for payment.
