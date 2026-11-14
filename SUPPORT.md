@@ -7,11 +7,7 @@ Choose the channel that matches the problem:
 - **Feature request or documentation correction:** use the matching public issue form.
 - **Confidential vulnerability in the project itself:** use the affected repository's
   **Security** tab and select **Report a vulnerability**.
-- **Privacy request:** follow the privacy contact published on
-  [mlaify.io](https://mlaify.io/privacy-policy/).
-
-Do not email routine bugs, support questions, false positives, false negatives, scanner output,
-or feature requests to the security address.
+- **Privacy request:** see the [privacy policy](https://mlaify.io/privacy-policy/).
 
 Before posting logs, screenshots, reports, or sample projects, remove secrets, credentials,
 personal information, proprietary source code, and third-party data.

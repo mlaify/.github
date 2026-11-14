@@ -9,8 +9,7 @@ Use a public GitHub issue for ordinary software and documentation problems. This
 - feature requests, support questions, and documentation corrections; and
 - security recommendations that do not demonstrate a vulnerability in this project.
 
-Do not send those reports to the security email address. Open the affected repository's
-**Issues** tab and select the appropriate form.
+Open the affected repository's **Issues** tab and select the appropriate form.
 
 Use GitHub Private Vulnerability Reporting only when the project itself creates a credible,
 unintended confidentiality, integrity, or availability impact. Open the affected repository's
