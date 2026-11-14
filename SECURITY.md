@@ -1,106 +1,93 @@
-# Security Policy
+# Security reporting policy
 
-## Choose the right reporting channel
+## Maintainer and project limits
 
-Use a public GitHub issue for ordinary software and documentation problems. This includes:
+The repositories in the `mlaify` organization are personal, hobby-maintained projects run by
+one person. They are not a commercial security service and do not have a dedicated security or
+support team.
+
+GitHub Private Vulnerability Reporting is an intake channel, not a bug-bounty program, paid
+disclosure program, service-level agreement, or contract. No payment, reward, sponsorship,
+employment, gift, or swag is offered or promised for reports. Do not submit invoices or make
+disclosure contingent on compensation.
+
+A report does not create an obligation to acknowledge, investigate, remediate, publish an
+advisory, provide credit, or coordinate disclosure. Reports may be closed without investigation
+or may receive no individual response. A previous response, fix, acknowledgement, or advisory
+does not create a commitment for future reports.
+
+## Supported environments
+
+Unless a repository explicitly documents otherwise, development and maintainer testing take
+place on macOS. Linux support is best effort only where the repository documents it. Windows is
+not supported.
+
+Reports that affect only an unsupported operating system, platform, version, configuration, or
+deployment are out of scope and may be closed without investigation or response.
+
+## Choose the right GitHub channel
+
+Use a public GitHub issue in the affected repository for ordinary software or documentation
+problems, including:
 
 - bugs, crashes, installation or compatibility problems;
-- false positives, false negatives, incorrect findings, and disagreements about severity;
+- false positives, false negatives, incorrect findings, or severity disagreements;
 - feature requests, support questions, and documentation corrections; and
-- security recommendations that do not demonstrate a vulnerability in this project.
+- security recommendations that do not demonstrate a vulnerability in the project itself.
 
-Open the affected repository's **Issues** tab and select the appropriate form.
+Use the affected repository's **Security** tab and select **Report a vulnerability** only for a
+credible, confidential vulnerability in that project. Do not put unpatched vulnerability details
+in a public issue, pull request, discussion, or comment.
 
-Use GitHub Private Vulnerability Reporting only when the project itself creates a credible,
-unintended confidentiality, integrity, or availability impact. Open the affected repository's
-**Security** tab and select **Report a vulnerability**. Do not put vulnerability details in a
-public issue, pull request, discussion, or comment.
-
-This is a coordinated vulnerability disclosure program, not a bug bounty. We do not offer or
-promise payment, rewards, or swag for reports.
-
-## What to include in a report
-
-GitHub's private reporting form has fixed fields, so cover these points in it:
-
-- **Affected repository, component, and version:** the release, build, or commit if known.
-- **Summary:** the security boundary that breaks.
-- **Realistic impact:** what an attacker can read, change, execute, impersonate, or make
-  unavailable, and who is affected.
-- **Attacker prerequisites:** network position, authentication or role, local or physical
-  access, user interaction, and configuration assumptions.
-- **Reproduction or proof of concept:** minimal, safe steps that let the maintainer validate the
-  issue, without data or credentials belonging to others.
-- **Sanitized evidence:** logs, screenshots, traces, or code excerpts with secrets, personal
-  data, proprietary source, and third-party data removed.
-- **Suggested remediation,** if you have one.
-- **Disclosure and credit preference:** timing constraints and the name or handle to credit, or
-  a request for anonymity.
-
-Before you submit, confirm that you tested only systems, devices, accounts, and data you own or
-had explicit permission to test, and that the report concerns this project itself rather than an
-ordinary bug, an incorrect result, or a third-party product. Automated scanner output without
-validation and a demonstrated impact is not sufficient by itself.
+Reports sent by email or through unrelated repositories are not processed. Automated or bulk
+scanner output without manual validation and a demonstrated project-specific impact is not
+sufficient.
 
 ## Scope
 
-This policy covers code maintained in the affected repository and services operated by mlaify
-for that project. A repository-specific security policy may define a narrower system boundary,
-supported versions, or additional exclusions; that policy takes precedence.
+The affected repository's maintained code and any service explicitly documented as operated for
+that project are in scope. A repository may publish narrower project-specific scope or supported
+versions; those details supplement this policy.
 
-## Generally out of scope
+The following are out of scope unless a distinct vulnerability in the affected project is
+demonstrated:
 
-The following are not security vulnerabilities in this project unless you demonstrate a
-project-specific security impact:
-
-- ordinary bugs, false positives, false negatives, inaccurate severity, or missing features;
 - findings in software merely analyzed, displayed, packaged, documented, or depended on by the
   project;
-- missing security headers, version disclosure, clickjacking on non-sensitive pages, or other
-  best-practice observations without a realistic attack path;
-- automated or bulk scanner reports without manual validation;
-- social engineering, spam, denial-of-service testing, or testing accounts, devices, or systems
-  you do not own or lack explicit permission to test; and
-- vulnerabilities in third-party products, services, dependencies, or vendor firmware, unless
-  this project uses or configures them in a way that creates a distinct vulnerability here.
+- third-party products, services, dependencies, or vendor firmware;
+- ordinary bugs, missing features, incorrect analysis, or best-practice observations without a
+  realistic attack path;
+- unsupported platforms, versions, configurations, or deployments;
+- social engineering, spam, denial-of-service testing, or testing of systems, accounts, devices,
+  or data without explicit authorization; and
+- reports whose primary purpose is to solicit payment, work, sponsorship, publicity, or a
+  commercial engagement.
 
 Report third-party vulnerabilities to the responsible vendor or an appropriate coordinator.
 
-## Our commitments
+## What to include
 
-For a complete, in-scope report submitted through GitHub Private Vulnerability Reporting, we will:
+GitHub's private reporting form has fixed fields. A useful report includes:
 
-- aim to acknowledge the report within seven calendar days;
-- work with you to understand and validate the issue;
-- keep you informed as the report is handled, within our operational constraints;
-- remediate confirmed vulnerabilities on a risk-informed timeline; and
-- coordinate publication and credit when appropriate.
+- the affected repository, component, version, release, or commit;
+- the security boundary that fails and a realistic impact;
+- attacker prerequisites and configuration assumptions;
+- minimal, safe reproduction steps or a proof of concept;
+- sanitized evidence with secrets, personal data, proprietary source, and third-party data
+  removed; and
+- a suggested remediation, if one is available.
 
-Reports that are incomplete, automated, out of scope, or ordinary support requests may be
-redirected, closed, or receive no individual response.
+## Research and disclosure
 
-## Our expectations
+Test only systems, devices, accounts, and data that you own or have explicit permission to test.
+Avoid privacy violations, disruption, persistence, lateral movement, and data destruction. Access
+only the minimum data needed to demonstrate an issue and stop immediately if you encounter data
+that is not yours.
 
-To participate in good faith:
+This policy does not grant authorization to test third-party or privately operated systems and
+does not provide legal advice or a safe-harbor guarantee. You are responsible for complying with
+applicable law.
 
-- test only systems, devices, accounts, and data you own or have explicit permission to test;
-- avoid privacy violations, disruption, data destruction, persistence, and lateral movement;
-- access only the minimum data needed to demonstrate the issue, and stop immediately if you
-  encounter data that is not yours;
-- use only GitHub Private Vulnerability Reporting for vulnerability details;
-- allow a reasonable remediation period, normally at least 90 days, before public disclosure;
-  and
-- do not use threats, extortion, or demands for payment.
-
-## Safe harbor
-
-Research conducted in good faith and in accordance with this policy is considered authorized
-under applicable anti-hacking and anti-circumvention laws. We will not initiate or support legal
-action for accidental, good-faith violations of this policy, and we waive restrictions in our
-terms that would interfere with compliant research on a limited basis.
-
-You remain responsible for complying with applicable law. This safe harbor applies only to legal
-claims under our control and does not bind independent third parties.
-
-If you are unsure whether planned research complies with this policy, submit a private report
-before continuing.
+Private submission does not imply a particular acknowledgement, fix, publication, credit, or
+embargo timeline. If a report is taken up, any coordination will be handled through its GitHub
+Private Vulnerability Reporting thread.

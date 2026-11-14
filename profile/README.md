@@ -6,7 +6,7 @@
 
 <p align="center">
   AI-driven software focused on defensive cybersecurity.<br>
-  Local-first, open source, and honest about its status.
+  Personal, hobby-maintained, local-first open source work.
 </p>
 
 <p align="center">
@@ -41,3 +41,6 @@ the engine, an analyzer, the macOS app, or the docs,
 [open an issue](https://github.com/mlaify/AttackMap/issues) to say hello.
 Report vulnerabilities through the affected repository's **Security** tab using
 **Report a vulnerability**. Ordinary bugs and incorrect results belong in public issues.
+These projects do not operate a bug bounty or paid disclosure program and do not offer payment,
+rewards, or swag. See the
+[organization-wide security reporting policy](https://github.com/mlaify/.github/blob/main/SECURITY.md).
