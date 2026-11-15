@@ -6,7 +6,8 @@
 
 <p align="center">
   AI-driven software focused on defensive cybersecurity.<br>
-  Also offensive software testing and development, vulnerability testing, and red-teaming.<br>
+  Also offensive software testing and development, vulnerability testing, and red-teaming,<br>
+  in authorized engagements only.<br>
   Personal, hobby-maintained, local-first open source work.
 </p>
 
@@ -33,7 +34,7 @@ Finder volumes. No licence key, no telemetry, no kernel extension.
 
 - **Privacy by default.** No telemetry, no phone-home, nothing collected that isn't needed.
 - **Defensive tools, offensively tested.** The tools here aim their output at remediation, never exploitation.
-  Alongside them, I do offensive software testing and development, vulnerability testing, and red-teaming.
+  Alongside them, I do offensive software testing and development, vulnerability testing, and red-teaming, in authorized engagements only.
 - **Status you can trust.** "Alpha" means alpha.
 
 ## Get involved
