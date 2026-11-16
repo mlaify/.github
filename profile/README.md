@@ -8,7 +8,7 @@
   AI-driven software focused on defensive cybersecurity.<br>
   Also offensive software testing and development, vulnerability testing, and red-teaming,<br>
   in authorized engagements only.<br>
-  Personal, hobby-maintained, local-first open source work.
+  Volunteer-run, local-first open source work.
 </p>
 
 <p align="center">
