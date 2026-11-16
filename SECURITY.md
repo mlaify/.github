@@ -2,9 +2,10 @@
 
 ## Maintainer and project limits
 
-The repositories in the `mlaify` organization are personal, hobby-maintained projects run by
-one person. They are not a commercial security service and do not have a dedicated security or
-support team.
+The repositories in the `mlaify` organization are worked on by just one person. They are not a
+commercial security service and do not have a dedicated security or support team. Coordinated
+vulnerability disclosure (CVD) and this vulnerability disclosure policy (VDP) are handled on a
+best-effort basis.
 
 GitHub Private Vulnerability Reporting is an intake channel, not a bug-bounty program, paid
 disclosure program, service-level agreement, or contract. No payment, reward, sponsorship,
