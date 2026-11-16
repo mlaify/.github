@@ -1,7 +1,9 @@
 # Support and Reporting
 
-These are personal, hobby-maintained projects run by one person. Support is best effort, there is
-no response-time commitment, and an issue may be closed or receive no individual response.
+M&L AI is run by volunteers. We do our best to support all of our projects, but support is best
+effort: there is no response-time commitment, and an issue may be closed or receive no individual
+response. M&L AI is small: it is not a large company with dedicated teams for security, support,
+and everything else.
 
 Unless a repository explicitly says otherwise, maintainer development and testing are on macOS.
 Linux support is limited to what that repository documents, and Windows is unsupported.
